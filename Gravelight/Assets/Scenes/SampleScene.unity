@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.51303846, g: 0.5754717, b: 0.5748056, a: 1}
+  m_FogColor: {r: 0.29930583, g: 0.3584906, b: 0.3584906, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.111
   m_LinearFogStart: 0
@@ -1088,7 +1088,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
