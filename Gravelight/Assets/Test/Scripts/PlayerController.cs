@@ -29,12 +29,37 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        UpdateMovementState();
-        HandleVerticalMovement();
-        HandleLateralMovement();
+        HandleVerticalMovement();  // Apply gravity first
+        HandleLateralMovement();   // Movement happens
+        UpdateMovementState();     // THEN decide what state we’re in
     }
 
     private void UpdateMovementState()
+    {
+        bool isMovementInput = _playerLocomotionInput.MovementInput != Vector2.zero;
+        bool isMovingLaterally = IsMovingLaterally();
+        bool isSprinting = _playerLocomotionInput.SprintToggledOn && isMovingLaterally;
+        bool isGrounded = IsGrounded();
+
+
+        PlayerMovementState lateralState = isSprinting ? PlayerMovementState.Sprinting :
+                                    isMovingLaterally || isMovementInput ? PlayerMovementState.Running : PlayerMovementState.Idling;
+
+        _playerState.SetPlayerMovementState(lateralState);
+
+        if (!isGrounded && _characterController.velocity.y >= 0)
+        {
+            _playerState.SetPlayerMovementState(PlayerMovementState.Jumping);
+        }
+        else if (!isGrounded && _characterController.velocity.y < 0f)
+        {
+            _playerState.SetPlayerMovementState(PlayerMovementState.Falling);
+        }
+    }
+
+
+
+    /*private void UpdateMovementState()
     {
         bool isMovementInput = _playerLocomotionInput.MovementInput != Vector2.zero;
         bool isMovingLaterally = IsMovingLaterally();
@@ -54,7 +79,7 @@ public class Player : MonoBehaviour
         {
             _playerState.SetPlayerMovementState(PlayerMovementState.Falling);
         }
-    }
+    }*/
 
     private void HandleVerticalMovement()
     {
@@ -102,18 +127,31 @@ public class Player : MonoBehaviour
         float speed = isSprinting ? sprintSpeed : runSpeed;
 
         // Read movement input (normalized so diagonal movement isn’t faster)
-        Vector3 inputDir = new Vector3(_playerLocomotionInput.MovementInput.x, 0f, _playerLocomotionInput.MovementInput.y);
+        Vector3 inputDir = new Vector3(
+            _playerLocomotionInput.MovementInput.x,
+            0f,
+            _playerLocomotionInput.MovementInput.y
+        );
         inputDir = Vector3.ClampMagnitude(inputDir, 1f);
 
-        // Convert input to world movement
-        Vector3 movement = inputDir * speed;
+        // Rotate toward movement
+        if (inputDir != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(inputDir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 10f
+            );
+        }
 
-        // Apply gravity to vertical velocity
+        // Move
+        Vector3 movement = inputDir * speed;
         movement.y = _verticalVelocity;
 
-        // Move the character
         _characterController.Move(movement * Time.deltaTime);
     }
+
 
 
     private bool IsMovingLaterally()
