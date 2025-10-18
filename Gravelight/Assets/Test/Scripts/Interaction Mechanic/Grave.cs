@@ -4,7 +4,10 @@ using TMPro;
 public class Grave : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt = "";     
-    [SerializeField] private GameObject _promptUI;     
+    [SerializeField] private GameObject _promptUI;
+
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private string[] dialogueLines;
 
     private TMP_Text _promptText; 
 
@@ -22,6 +25,12 @@ public class Grave : MonoBehaviour, IInteractable
     public bool Interact(Interactor interactor)
     {
         Debug.Log($"Interacted with Grave: {gameObject.name}");
+
+        if (dialogue != null && dialogueLines.Length > 0)
+        {
+            dialogue.StartDialogue(dialogueLines);
+        }
+
         return true;
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5741427808008046578
+--- !u!1 &1479622394376815872
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 191113100136027774}
-  - component: {fileID: 4554915096889179686}
-  - component: {fileID: 8752160732202871142}
+  - component: {fileID: 2329456295630551380}
+  - component: {fileID: 9072427822180340912}
+  - component: {fileID: 7540091003769150728}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &191113100136027774
+--- !u!4 &2329456295630551380
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5741427808008046578}
+  m_GameObject: {fileID: 1479622394376815872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.7129354, y: 1.9041694, z: -1.5031176}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4662594002865951615}
+  m_Father: {fileID: 5036706523941788602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &4554915096889179686
+--- !u!108 &9072427822180340912
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5741427808008046578}
+  m_GameObject: {fileID: 1479622394376815872}
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
@@ -98,13 +98,13 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &8752160732202871142
+--- !u!114 &7540091003769150728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5741427808008046578}
+  m_GameObject: {fileID: 1479622394376815872}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &7784525753362569464
+--- !u!1 &2245016678544297599
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4662594002865951615}
+  - component: {fileID: 5036706523941788602}
   m_Layer: 0
   m_Name: Gravestone1
   m_TagString: Untagged
@@ -137,31 +137,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4662594002865951615
+--- !u!4 &5036706523941788602
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7784525753362569464}
+  m_GameObject: {fileID: 2245016678544297599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.332935, y: -2.4721694, z: 7.7391176}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1080251037000428040}
-  - {fileID: 191113100136027774}
-  - {fileID: 7662017944308728718}
+  - {fileID: 9044555584125824966}
+  - {fileID: 2329456295630551380}
+  - {fileID: 4941776229244442019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2926332028243821243
+--- !u!1001 &458285844801197206
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4662594002865951615}
+    m_TransformParent: {fileID: 5036706523941788602}
     m_Modifications:
     - target: {fileID: 4812271848951808309, guid: 5d95732740ea0c246a03631d6852f178, type: 3}
       propertyPath: m_Pivot.x
@@ -252,23 +252,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d95732740ea0c246a03631d6852f178, type: 3}
---- !u!1 &5905490933306396338 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8748505947268631561, guid: 5d95732740ea0c246a03631d6852f178, type: 3}
-  m_PrefabInstance: {fileID: 2926332028243821243}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &7662017944308728718 stripped
+--- !u!224 &4941776229244442019 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4812271848951808309, guid: 5d95732740ea0c246a03631d6852f178, type: 3}
-  m_PrefabInstance: {fileID: 2926332028243821243}
+  m_PrefabInstance: {fileID: 458285844801197206}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3426198467778905920
+--- !u!1 &9166170230280542367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8748505947268631561, guid: 5d95732740ea0c246a03631d6852f178, type: 3}
+  m_PrefabInstance: {fileID: 458285844801197206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6698304692709163662
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4662594002865951615}
+    m_TransformParent: {fileID: 5036706523941788602}
     m_Modifications:
     - target: {fileID: 2409882934570609992, guid: e54b5da67e1b90f4e91949ca516a50ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -324,29 +324,33 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3042831833515112434, guid: e54b5da67e1b90f4e91949ca516a50ae, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1187925351289621872}
+      addedObject: {fileID: 5089776887411606955}
   m_SourcePrefab: {fileID: 100100000, guid: e54b5da67e1b90f4e91949ca516a50ae, type: 3}
---- !u!1 &411518841971552434 stripped
+--- !u!1 &8561175554029008252 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3042831833515112434, guid: e54b5da67e1b90f4e91949ca516a50ae, type: 3}
-  m_PrefabInstance: {fileID: 3426198467778905920}
+  m_PrefabInstance: {fileID: 6698304692709163662}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1187925351289621872
+--- !u!114 &5089776887411606955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411518841971552434}
+  m_GameObject: {fileID: 8561175554029008252}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1824a41bc7542ea48a10c462e5893f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: E -> check grave
-  _promptUI: {fileID: 5905490933306396338}
---- !u!4 &1080251037000428040 stripped
+  _prompt: 'E '
+  _promptUI: {fileID: 9166170230280542367}
+  dialogue: {fileID: 0}
+  dialogueLines:
+  - Wassup bruh i aint got no soul
+  - hehe
+--- !u!4 &9044555584125824966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2409882934570609992, guid: e54b5da67e1b90f4e91949ca516a50ae, type: 3}
-  m_PrefabInstance: {fileID: 3426198467778905920}
+  m_PrefabInstance: {fileID: 6698304692709163662}
   m_PrefabAsset: {fileID: 0}
