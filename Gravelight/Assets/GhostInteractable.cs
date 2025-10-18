@@ -1,15 +1,15 @@
 using UnityEngine;
-using TMPro; 
+using TMPro;
 
-public class Grave : MonoBehaviour, IInteractable
+public class GhostInteractable : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string _prompt = "";     
+    [SerializeField] private string _prompt = "";
     [SerializeField] private GameObject _promptUI;
 
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private string[] dialogueLines;
 
-    private TMP_Text _promptText; 
+    private TMP_Text _promptText;
 
     public string InteractionPrompt => _prompt;
 
@@ -24,7 +24,7 @@ public class Grave : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        Debug.Log($"Interacted with Grave: {gameObject.name}");
+        Debug.Log($"Interacted with Ghost: {gameObject.name}");
 
         if (dialogue != null && dialogueLines.Length > 0)
         {
@@ -39,7 +39,7 @@ public class Grave : MonoBehaviour, IInteractable
         if (_promptUI != null)
         {
             if (_promptText != null)
-                _promptText.text = _prompt; 
+                _promptText.text = _prompt;
 
             _promptUI.SetActive(true);
         }
