@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float stopDistance = 2f;
-    public float hoverHeight = 2f;   // <- stays at this height
+    public float hoverHeight = 4f;   // <- stays at this height
 
     [Header("Attack")]
     public float attackRange = 2f;
@@ -24,6 +24,8 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        hoverHeight = rb.position.y;
     }
 
     private void FixedUpdate()
