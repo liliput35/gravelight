@@ -2,15 +2,16 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
+using System; // for Action delegate
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public string[] lines;
-    public float textSpeed;
+    public float textSpeed = 0.05f;
 
     private int index;
-
+    private Action onDialogueComplete; // callback for when dialogue finishes
 
     void Start()
     {
@@ -19,9 +20,9 @@ public class Dialogue : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) 
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (textComponent.text == lines[index]) 
+            if (textComponent.text == lines[index])
             {
                 NextLine();
             }
@@ -33,12 +34,23 @@ public class Dialogue : MonoBehaviour
         }
     }
 
+    // --- Overload 1: Start dialogue with just lines (no callback)
     public void StartDialogue(string[] newLines)
     {
+        StartDialogue(newLines, null);
+    }
+
+    // --- Overload 2: Start dialogue with callback
+    public void StartDialogue(string[] newLines, Action onComplete)
+    {
         lines = newLines;
+        onDialogueComplete = onComplete;
+
         index = 0;
         textComponent.text = string.Empty;
         gameObject.SetActive(true);
+
+        StopAllCoroutines();
         StartCoroutine(TypeLine());
     }
 
@@ -57,11 +69,17 @@ public class Dialogue : MonoBehaviour
         {
             index++;
             textComponent.text = string.Empty;
-            StartCoroutine (TypeLine());
+            StopAllCoroutines();
+            StartCoroutine(TypeLine());
         }
         else
         {
+            // Finished all lines
             gameObject.SetActive(false);
+
+            // Trigger callback if there is one
+            onDialogueComplete?.Invoke();
+            onDialogueComplete = null;
         }
     }
 }
