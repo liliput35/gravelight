@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 083bd301aafae2d479e4abffd0d7a77a
+guid: bd45ff7b9a49cb144b99f3760dd64754
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ImphenziaPixPal
-    second: {fileID: 2100000, guid: 91b482afdd77d0d4f8e5321f9fe183a0, type: 2}
+      name: m_books
+    second: {fileID: 2100000, guid: 6f0e6298d466d344fa06b8ea92a2f66e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: NPC GHOSTS
-    second: {fileID: 2100000, guid: 345782d7ca14a2049b41f24674b4023b, type: 2}
+      name: m_shelves
+    second: {fileID: 2100000, guid: 9d56487bab11e4a4788b93cbb182dc9c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

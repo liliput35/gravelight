@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 1b2cf55cc30c54646b5d15ac1335d712
+guid: 2ab9769db46a35145995223cdc997568
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NPC GHOSTS
+    second: {fileID: 2100000, guid: 345782d7ca14a2049b41f24674b4023b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
