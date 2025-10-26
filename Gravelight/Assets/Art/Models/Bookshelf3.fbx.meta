@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: f4d9ce49409c0994e898b91fc564d744
+guid: ec192e787321ab6438ebbf4b0621c4c2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m_books
+    second: {fileID: 2100000, guid: 6f0e6298d466d344fa06b8ea92a2f66e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m_shelves
+    second: {fileID: 2100000, guid: 9d56487bab11e4a4788b93cbb182dc9c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
