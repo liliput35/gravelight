@@ -278,7 +278,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54660e880349fc04c8a2df19a5443a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 3
+  currentHealth: 3
+  regenDelay: 3
+  regenRate: 1
+  heartDisplay: {fileID: 0}
+  fullHearts: {fileID: 21300000, guid: fa2950a23f6abe3459c0e3f544687607, type: 3}
+  twoHearts: {fileID: 21300000, guid: ff7adabfc3800cd4b81a443d7075cf8a, type: 3}
+  oneHeart: {fileID: 21300000, guid: 9a847016cc50fe9458657d3d6a282e69, type: 3}
+  emptyHearts: {fileID: 21300000, guid: aa6a6154922ad7347b8cd4277777e77c, type: 3}
 --- !u!4 &4040657833615969334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6852764847307465522, guid: ee206c4798c83ca439c4f59920fed5b6, type: 3}
@@ -401,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e9f5ad2801da946ae1bbfe265795b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 2
 --- !u!4 &7755312402741431378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f8f5921cabd01c9439d3274205a8d294, type: 3}

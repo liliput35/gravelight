@@ -7,11 +7,14 @@ using System; // for Action delegate
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
+    public TextMeshProUGUI nameComponent;
+
     public string[] lines;
     public float textSpeed = 0.05f;
 
     private int index;
-    private Action onDialogueComplete; // callback for when dialogue finishes
+    public Action onDialogueComplete; // callback for when dialogue finishes
+
 
     void Start()
     {
@@ -35,16 +38,25 @@ public class Dialogue : MonoBehaviour
     }
 
     // --- Overload 1: Start dialogue with just lines (no callback)
-    public void StartDialogue(string[] newLines)
+    public void StartDialogue(string speakerName, string[] newLines)
     {
-        StartDialogue(newLines, null);
+        StartDialogue(speakerName, newLines, null);
     }
 
     // --- Overload 2: Start dialogue with callback
-    public void StartDialogue(string[] newLines, Action onComplete)
+    public void StartDialogue(string speakerName, string[] newLines, Action onComplete)
     {
         lines = newLines;
         onDialogueComplete = onComplete;
+
+
+        // Set the speaker name on UI (optional)
+        if (nameComponent != null)
+        {
+            nameComponent.text = speakerName;
+            nameComponent.gameObject.SetActive(!string.IsNullOrEmpty(speakerName));
+        }
+            
 
         index = 0;
         textComponent.text = string.Empty;
@@ -53,6 +65,13 @@ public class Dialogue : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TypeLine());
     }
+
+    // --- Overload 3: Start dialogue with no speaker name (for items, narration, etc.)
+    public void StartDialogue(string[] newLines, Action onComplete)
+    {
+        StartDialogue("", newLines, onComplete);
+    }
+
 
     IEnumerator TypeLine()
     {
@@ -77,9 +96,16 @@ public class Dialogue : MonoBehaviour
             // Finished all lines
             gameObject.SetActive(false);
 
+            Debug.Log("Dialogue finished, calling onDialogueComplete!");
+
             // Trigger callback if there is one
             onDialogueComplete?.Invoke();
             onDialogueComplete = null;
         }
+    }
+
+    public void SetOnCompleteCallback(Action callback)
+    {
+        onDialogueComplete = callback;
     }
 }

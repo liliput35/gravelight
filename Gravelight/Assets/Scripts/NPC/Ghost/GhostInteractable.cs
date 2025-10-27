@@ -28,7 +28,7 @@ public class GhostInteractable : MonoBehaviour, IInteractable
 
         if (dialogue != null && dialogueLines.Length > 0)
         {
-            dialogue.StartDialogue(dialogueLines);
+            dialogue.StartDialogue("Ghost", dialogueLines);
         }
 
         return true;
