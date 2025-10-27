@@ -7,6 +7,9 @@ public class GameFlowManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GrimDialogue grimNPC;   
 
+    [SerializeField] public WickDialogue wickNPC; 
+    [SerializeField] private WickFollower wickFollower; 
+
     private bool grimIntroDone = false;
 
     private void Awake()
@@ -51,6 +54,11 @@ public class GameFlowManager : MonoBehaviour
         grimIntroDone = true;
 
         // (Later: trigger Wick’s intro sequence here)
+        // Allow the player to talk to Wick
+        if (wickNPC != null)
+        {
+            wickNPC.EnableInteraction(true);
+        }
 
         // Optional: Unsubscribe to prevent memory leaks
         if (grimNPC != null && grimNPC.GetComponentInChildren<Dialogue>() != null)
@@ -58,4 +66,15 @@ public class GameFlowManager : MonoBehaviour
             grimNPC.GetComponentInChildren<Dialogue>().onDialogueComplete -= OnGrimFirstDialogueEnd;
         }
     }
+
+    public void OnWickIntroComplete()
+    {
+        Debug.Log("Wick intro finished — enabling Wick to follow player.");
+
+        if (wickFollower != null)
+        {
+            wickFollower.enabled = true; // start following behavior
+        }
+    }
+
 }
