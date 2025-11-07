@@ -26,9 +26,8 @@ public enum PlayerMovementState
     Walking = 1,
     Running = 2,
     Sprinting = 3,
-    Jumping = 4,
-    Falling = 5,
-    Strafing = 6,
+    Falling = 4,
+    Strafing = 5,
 }
 
 
