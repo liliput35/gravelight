@@ -43,10 +43,7 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerA
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-            return;
-
-        JumpPressed = true;
+        // REMOVED - no longer using jump
     }
 
     public void OnToggleSprint(InputAction.CallbackContext context)

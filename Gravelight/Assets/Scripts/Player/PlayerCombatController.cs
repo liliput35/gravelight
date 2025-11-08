@@ -7,9 +7,14 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] private GameObject swordHitbox;
     [SerializeField] private float attackCooldown = 0.8f;
-    [SerializeField] private float hitboxActiveTime = 0.2f;
+    private Animator _anim;
 
     private bool canAttack = true;
+
+    private void Awake()
+    {
+        _anim = GetComponentInChildren<Animator>();
+    }
 
     void Update()
     {
@@ -22,15 +27,16 @@ public class PlayerCombatController : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        _anim.SetTrigger("attack");
         canAttack = false;
 
-        // Enable sword hitbox for a short time
-        swordHitbox.SetActive(true);
-        yield return new WaitForSeconds(hitboxActiveTime);
-        swordHitbox.SetActive(false);
 
         // Cooldown before next attack
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
+
+    public void EnableHitbox() => swordHitbox.SetActive(true);
+    public void DisableHitbox() => swordHitbox.SetActive(false);
+
 }

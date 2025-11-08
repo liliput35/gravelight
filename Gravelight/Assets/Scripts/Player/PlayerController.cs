@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     public float runSpeed = 4f;
     //public float drag = 0.1f;
     public float gravity = 25f;
-    public float jumpSpeed = 1f;
     public float movingThreshold = 0.01f;
     public float sprintAcceleration = 0.5f;
     public float sprintSpeed = 7f;
@@ -47,11 +46,7 @@ public class Player : MonoBehaviour
 
         _playerState.SetPlayerMovementState(lateralState);
 
-        if (!isGrounded && _characterController.velocity.y >= 0)
-        {
-            _playerState.SetPlayerMovementState(PlayerMovementState.Jumping);
-        }
-        else if (!isGrounded && _characterController.velocity.y < 0f)
+        if (!isGrounded && _characterController.velocity.y < 0f)
         {
             _playerState.SetPlayerMovementState(PlayerMovementState.Falling);
         }
@@ -92,10 +87,6 @@ public class Player : MonoBehaviour
 
         _verticalVelocity -= gravity * Time.deltaTime;
 
-        if (_playerLocomotionInput.JumpPressed && isGrounded)
-        {
-            _verticalVelocity += Mathf.Sqrt(jumpSpeed * 3 * gravity);
-        }
     }
 
     /*private void HandleLateralMovement()

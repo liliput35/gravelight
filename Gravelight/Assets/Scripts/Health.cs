@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        if (gameObject.name == "PlayerLili" && heartDisplay == null)
+        if (gameObject.name == "PlayerLiliAnimated" && heartDisplay == null)
         {
             heartDisplay = GameObject.Find("HealthBar")?.GetComponent<Image>();
         }
@@ -34,7 +34,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.name == "PlayerLili")
+        if (gameObject.name == "PlayerLiliAnimated")
         {
             TryRegen();
         }
@@ -47,7 +47,7 @@ public class Health : MonoBehaviour
         lastDamageTime = Time.time; // reset regen timer
         isRegenerating = false;
 
-        if (gameObject.name == "PlayerLili")
+        if (gameObject.name == "PlayerLiliAnimated")
         {
             UpdateHeartsUI();
         }
