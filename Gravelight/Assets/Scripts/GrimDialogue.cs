@@ -10,6 +10,9 @@ public class GrimDialogue : MonoBehaviour, IInteractable
     [SerializeField] private string[] firstDialogueLines;
     [SerializeField] private string[] altDialogueLines;
 
+    [SerializeField] private AudioSource interactionAudioSource; 
+    [SerializeField] private AudioClip interactionSFX;
+
     private TMP_Text _promptText;
     private GameFlowManager gameFlowManager; //  reference to the central manager
     private bool hasTalkedAlready = false;
@@ -26,11 +29,22 @@ public class GrimDialogue : MonoBehaviour, IInteractable
 
         // Try to auto-find GameFlowManager in the scene
         gameFlowManager = FindFirstObjectByType<GameFlowManager>();
+
+        if (interactionAudioSource == null)
+        {
+            Debug.LogWarning("Interaction AudioSource not assigned on Grim!");
+        }
+
     }
 
     public bool Interact(Interactor interactor)
     {
         Debug.Log($"Talking with Grim: {gameObject.name}");
+
+         if (interactionAudioSource != null && interactionSFX != null)
+        {
+            interactionAudioSource.PlayOneShot(interactionSFX);
+        }
 
         if (dialogue == null) return false;
 

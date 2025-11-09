@@ -7,13 +7,22 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] private GameObject swordHitbox;
     [SerializeField] private float attackCooldown = 0.8f;
-    private Animator _anim;
+    [SerializeField] private AudioClip attackSFX;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource attackAudioSource;
+
+    private Animator _anim;
     private bool canAttack = true;
 
     private void Awake()
     {
         _anim = GetComponentInChildren<Animator>();
+        
+        if (attackAudioSource == null )
+        {
+            Debug.LogWarning("No AudioSource found on player!");
+        }
     }
 
     void Update()
@@ -28,6 +37,12 @@ public class PlayerCombatController : MonoBehaviour
     private IEnumerator Attack()
     {
         _anim.SetTrigger("attack");
+
+        if (attackSFX != null && attackAudioSource != null)
+        { 
+            attackAudioSource.PlayOneShot(attackSFX);
+        }
+
         canAttack = false;
 
 
