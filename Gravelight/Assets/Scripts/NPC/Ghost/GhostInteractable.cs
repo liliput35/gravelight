@@ -6,7 +6,7 @@ public class GhostInteractable : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt = "";
     [SerializeField] private GameObject _promptUI;
 
-    [SerializeField] private Dialogue dialogue;
+    [SerializeField] public Dialogue dialogue;
     [SerializeField] private string[] dialogueLines;
 
     private TMP_Text _promptText;

@@ -11,6 +11,8 @@ public class WickDialogue : MonoBehaviour, IInteractable
     private TMP_Text _promptText;
     private bool canInteract = false;
     private bool hasTalked = false;
+    private bool introDone = false;
+
 
     public string InteractionPrompt => _prompt;
 
@@ -34,25 +36,37 @@ public class WickDialogue : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        if (!canInteract || hasTalked)
+        if (!canInteract )
             return false;
 
         Debug.Log("Player is talking to Wick.");
 
-        if (dialogue != null)
+        if (dialogue != null )
         {
-            dialogue.StartDialogue("WICK", dialogueLines, OnWickDialogueComplete);
+            dialogue.StartDialogue("Wick", dialogueLines, OnWickDialogueComplete);
             hasTalked = true;
-        }
+        } 
 
-        return true;
-    }
+            return true;
+    } 
+
 
     private void OnWickDialogueComplete()
     {
-        Debug.Log("Wick finished talking — now he will follow the player.");
-        canInteract = false ;
-        gameFlowManager?.OnWickIntroComplete();
+        if (hasTalked && !introDone)
+        {
+            Debug.Log("Wick finished talking — now he will follow the player.");
+            canInteract = false;
+            gameFlowManager?.OnWickIntroComplete();
+            introDone = true;
+        }
+        else if (hasTalked && introDone) { 
+            Debug.Log("Wick will now teleport you"); 
+            EnableInteraction(false);
+            gameFlowManager?.StartTeleportSequence();
+        }
+
+
     }
 
     public void ShowPrompt()
