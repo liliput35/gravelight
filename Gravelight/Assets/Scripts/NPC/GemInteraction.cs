@@ -17,6 +17,8 @@ public class GemInteraction : MonoBehaviour, IInteractable
     private TMP_Text _promptText;
     private bool hasBeenCollected = false;
 
+    private GemCollection gemCollection; // reference to your separate script
+
     public string InteractionPrompt => _prompt;
 
     private void Awake()
@@ -25,6 +27,9 @@ public class GemInteraction : MonoBehaviour, IInteractable
         {
             _promptUI.SetActive(false);
         }
+
+        // find attached GemCollection
+        gemCollection = GetComponent<GemCollection>();
     }
 
     public bool Interact(Interactor interactor)
@@ -50,7 +55,15 @@ public class GemInteraction : MonoBehaviour, IInteractable
     private void OnDialogueComplete()
     {
         hasBeenCollected = true;
-        gameObject.SetActive(false);  // Disappear (collected)
+
+        if (gemCollection != null)
+        {
+            gemCollection.Collect();
+        } else
+        {
+            Debug.LogWarning($"{name} has no GemCollection script!");
+        }
+            gameObject.SetActive(false);  // Disappear (collected)
         Debug.Log($"{gameObject.name} collected!");
     }
 
