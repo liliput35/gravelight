@@ -15,6 +15,19 @@ public class Dialogue : MonoBehaviour
     private int index;
     public Action onDialogueComplete; // callback for when dialogue finishes
 
+    [Header("Speaker Colors")]
+    [SerializeField] private Color defaultSpeakerColor = Color.white;
+
+    // Optional: assign in Inspector or hardcode
+    [SerializeField] private SpeakerColorEntry[] speakerColors;
+
+    [System.Serializable]
+    public struct SpeakerColorEntry
+    {
+        public string speakerName;
+        public Color color;
+    }
+
 
     void Start()
     {
@@ -56,7 +69,19 @@ public class Dialogue : MonoBehaviour
             nameComponent.text = speakerName;
             nameComponent.gameObject.SetActive(!string.IsNullOrEmpty(speakerName));
         }
-            
+
+        // Set color
+        Color c = defaultSpeakerColor;
+        foreach (var entry in speakerColors)
+        {
+            if (entry.speakerName.Equals(speakerName, StringComparison.OrdinalIgnoreCase))
+            {
+                c = entry.color;
+                break;
+            }
+        }
+        nameComponent.color = c;
+
 
         index = 0;
         textComponent.text = string.Empty;

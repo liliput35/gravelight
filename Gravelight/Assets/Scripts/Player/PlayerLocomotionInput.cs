@@ -22,8 +22,14 @@ public class PlayerLocomotionInput : MonoBehaviour, InputSystem_Actions.IPlayerA
 
     private void OnDisable()
     {
-        InputActions.Player.Disable();
-        InputActions.Player.RemoveCallbacks(this);
+        // Properly disable everything
+        if (InputActions != null)
+        {
+            InputActions.Player.Disable();
+            InputActions.Player.RemoveCallbacks(this);
+            InputActions.Disable();      // <-- THIS is crucial
+            InputActions.Dispose();      // optional but cleans up memory
+        }
     }
 
     private void LateUpdate()

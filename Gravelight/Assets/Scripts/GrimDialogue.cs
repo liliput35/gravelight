@@ -37,7 +37,7 @@ public class GrimDialogue : MonoBehaviour, IInteractable
         if (!hasTalkedAlready)
         {
             // Start first-time dialogue
-            dialogue.StartDialogue("GRIM", firstDialogueLines);
+            dialogue.StartDialogue("Grim", firstDialogueLines);
             hasTalkedAlready = true;
 
             // Notify the GameFlowManager
@@ -46,7 +46,7 @@ public class GrimDialogue : MonoBehaviour, IInteractable
         else
         {
             // Alternate dialogue for later interactions
-            dialogue.StartDialogue("GRIM", altDialogueLines);
+            dialogue.StartDialogue("Grim", altDialogueLines);
         }
 
         return true;
