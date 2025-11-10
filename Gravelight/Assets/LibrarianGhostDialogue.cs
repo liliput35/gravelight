@@ -10,6 +10,10 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
     [SerializeField] private string[] firstDialogueLines;
     [SerializeField] private string[] altDialogueLines;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource interactionAudioSource;
+    [SerializeField] private AudioClip interactionSFX;
+
     private TMP_Text _promptText;
     private GameFlowManager gameFlowManager; 
     private bool hasTalkedAlready = false;
@@ -29,6 +33,11 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
 
         // Try to auto-find GameFlowManager in the scene
         gameFlowManager = FindFirstObjectByType<GameFlowManager>();
+
+        if (interactionAudioSource == null)
+        {
+            Debug.LogWarning("Interaction AudioSource not assigned on Librarian!");
+        }
     }
 
     public void EnableInteraction(bool enable)
@@ -42,6 +51,11 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
             return false;
 
         Debug.Log($"Talking with Lucille The Librarian: {gameObject.name}");
+
+        if (interactionAudioSource != null && interactionSFX != null)
+        {
+            interactionAudioSource.PlayOneShot(interactionSFX);
+        }
 
         if (dialogue == null) return false;
 

@@ -8,6 +8,10 @@ public class WickDialogue : MonoBehaviour, IInteractable
     [SerializeField] public Dialogue dialogue;
     [SerializeField] private string[] dialogueLines;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource interactionAudioSource;
+    [SerializeField] private AudioClip interactionSFX;
+
     private TMP_Text _promptText;
     private bool canInteract = false;
     private bool hasTalked = false;
@@ -30,6 +34,10 @@ public class WickDialogue : MonoBehaviour, IInteractable
         gameFlowManager = FindFirstObjectByType<GameFlowManager>();
         libraryGameFlowManager = FindFirstObjectByType<LibraryGameFlowManager>();
 
+        if (interactionAudioSource == null)
+        {
+            Debug.LogWarning("Interaction AudioSource not assigned on Wick!");
+        }
     }
 
     public void EnableInteraction(bool enable)
@@ -43,6 +51,11 @@ public class WickDialogue : MonoBehaviour, IInteractable
             return false;
 
         Debug.Log("Player is talking to Wick.");
+
+        if (interactionAudioSource != null && interactionSFX != null)
+        {
+            interactionAudioSource.PlayOneShot(interactionSFX);
+        }
 
         if (dialogue != null )
         {
