@@ -51,26 +51,31 @@ public class WickDialogue : MonoBehaviour, IInteractable
         } 
 
             return true;
-    } 
+    }
 
 
     private void OnWickDialogueComplete()
     {
-        if (hasTalked && !introDone)
+        if (gameFlowManager != null)
         {
-            Debug.Log("Wick finished talking — now he will follow the player.");
-            canInteract = false;
-            gameFlowManager?.OnWickIntroComplete();
-            introDone = true;
+            // G R A V E Y A R D  mode
+            if (!introDone)
+            {
+                gameFlowManager.OnWickIntroComplete();
+                introDone = true;
+            }
+            else
+            {
+                EnableInteraction(false);
+                gameFlowManager.StartTeleportSequence(); // Teleport TO Library
+            }
         }
-        else if (hasTalked && introDone) { 
-            Debug.Log("Wick will now teleport you"); 
-            EnableInteraction(false);
-            gameFlowManager?.StartTeleportSequence();
+        else if (libraryGameFlowManager != null)
+        {
+            // L I B R A R Y   mode
+            libraryGameFlowManager.OnWickInteractionComplete();
+            
         }
-
-        Debug.Log("Wick finished talking in library.");
-        LibraryGameFlowManager.Instance?.OnWickInteractionComplete();
     }
 
     public void ShowPrompt()

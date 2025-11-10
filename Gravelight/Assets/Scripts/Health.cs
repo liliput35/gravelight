@@ -20,6 +20,8 @@ public class Health : MonoBehaviour
     public Sprite oneHeart;
     public Sprite emptyHearts;
 
+    public System.Action OnDeath;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -112,6 +114,9 @@ public class Health : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+
+        OnDeath?.Invoke();
+
         gameObject.SetActive(false);
     }
 }
