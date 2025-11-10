@@ -39,7 +39,6 @@ public class GameFlowManager : MonoBehaviour
         {
             Debug.Log("has position saved");
             RestorePlayerTransform();
-            RestoreCameraTransform();
 
             grimIntroDone = SaveData.grimIntroDone;
             firstGhostDone = SaveData.ghostHelped;
@@ -150,7 +149,6 @@ public class GameFlowManager : MonoBehaviour
         }
 
         var player = GameObject.FindWithTag("Player");
-        var cam = Camera.main;
 
         if (player != null)
         {
@@ -158,11 +156,6 @@ public class GameFlowManager : MonoBehaviour
             SaveData.playerRotation = player.transform.rotation;
         }
 
-        if (cam != null)
-        {
-            SaveData.cameraPosition = cam.transform.position;
-            SaveData.cameraRotation = cam.transform.rotation;
-        }
 
         SaveData.hasSavedPosition = true;
 
@@ -180,16 +173,6 @@ public class GameFlowManager : MonoBehaviour
         {
             player.transform.position = SaveData.playerPosition;
             player.transform.rotation = SaveData.playerRotation;
-        }
-    }
-
-    private void RestoreCameraTransform()
-    {
-        var camHolder = Camera.main;
-        if (camHolder != null)
-        {
-            camHolder.transform.position = SaveData.cameraPosition;
-            camHolder.transform.rotation = SaveData.cameraRotation;
         }
     }
 
