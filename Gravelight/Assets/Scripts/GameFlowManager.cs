@@ -16,6 +16,8 @@ public class GameFlowManager : MonoBehaviour
 
 
     [SerializeField] private LibrarianGhostDialogue firstGhost;   // Librarian ghost NPC
+    private bool firstGhostDone = false;
+
 
     private bool grimIntroDone = false;
 
@@ -32,7 +34,26 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("GameFlowManager started — waiting for Grim intro to begin.");
+
+        if (SaveData.hasSavedPosition)
+        {
+            Debug.Log("has position saved");
+            RestorePlayerTransform();
+            RestoreCameraTransform();
+
+            grimIntroDone = SaveData.grimIntroDone;
+            firstGhostDone = SaveData.ghostHelped;
+
+            if (SaveData.wickIntroDone)
+                wickFollower.enabled = true;
+
+            if (SaveData.ghostHelped)
+            {
+                firstGhost.EnableInteraction(true);
+            }
+        }
+
+        
     }
 
     /// Called by GrimDialogue when the player first talks to Grim.
@@ -58,7 +79,7 @@ public class GameFlowManager : MonoBehaviour
     private void OnGrimFirstDialogueEnd()
     {
         Debug.Log("Grim's first dialogue finished — marking Grim intro as done.");
-        grimIntroDone = true;
+        grimIntroDone = true; 
 
         // (Later: trigger Wick’s intro sequence here)
         // Allow the player to talk to Wick
@@ -86,9 +107,7 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    // GHOST PHASE MANAGEMENT    
 
-    private bool firstGhostDone = false;
 
     public void OnGhostDialogueStarted(LibrarianGhostDialogue ghost)
     {
@@ -130,8 +149,48 @@ public class GameFlowManager : MonoBehaviour
             playerInput.actions.Disable();  // important!
         }
 
+        var player = GameObject.FindWithTag("Player");
+        var cam = Camera.main;
+
+        if (player != null)
+        {
+            SaveData.playerPosition = player.transform.position;
+            SaveData.playerRotation = player.transform.rotation;
+        }
+
+        if (cam != null)
+        {
+            SaveData.cameraPosition = cam.transform.position;
+            SaveData.cameraRotation = cam.transform.rotation;
+        }
+
+        SaveData.hasSavedPosition = true;
+
+        SaveData.grimIntroDone = grimIntroDone;
+        SaveData.wickIntroDone = wickFollower.enabled;
+        SaveData.firstGhostDone = firstGhostDone;
+
         SceneManager.LoadScene("Library_Realm");
 
+    }
+    private void RestorePlayerTransform()
+    {
+        var player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = SaveData.playerPosition;
+            player.transform.rotation = SaveData.playerRotation;
+        }
+    }
+
+    private void RestoreCameraTransform()
+    {
+        var camHolder = Camera.main;
+        if (camHolder != null)
+        {
+            camHolder.transform.position = SaveData.cameraPosition;
+            camHolder.transform.rotation = SaveData.cameraRotation;
+        }
     }
 
 }

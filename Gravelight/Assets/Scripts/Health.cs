@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
@@ -117,7 +119,32 @@ public class Health : MonoBehaviour
 
         OnDeath?.Invoke();
 
-        gameObject.SetActive(false);
+
+        if (gameObject.name == "PlayerLiliAnimated")
+        {
+            StartCoroutine(DeathSequence());
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        // Disable player input immediately
+        var playerInput = FindFirstObjectByType<UnityEngine.InputSystem.PlayerInput>();
+        if (playerInput != null)
+            playerInput.actions.Disable();
+
+        // Fade screen to black (0.8s recommended)
+        yield return ScreenFader.Instance.FadeToWhite(0.8f);
+
+        // Small pause for dramatic effect
+        yield return new WaitForSeconds(0.2f);
+
+        // Reload current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
  
