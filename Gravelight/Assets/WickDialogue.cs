@@ -5,7 +5,7 @@ public class WickDialogue : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt = "";
     [SerializeField] private GameObject _promptUI;
-    [SerializeField] private Dialogue dialogue;
+    [SerializeField] public Dialogue dialogue;
     [SerializeField] private string[] dialogueLines;
 
     private TMP_Text _promptText;
@@ -17,6 +17,7 @@ public class WickDialogue : MonoBehaviour, IInteractable
     public string InteractionPrompt => _prompt;
 
     private GameFlowManager gameFlowManager;
+    private LibraryGameFlowManager libraryGameFlowManager;
 
     private void Awake()
     {
@@ -27,6 +28,8 @@ public class WickDialogue : MonoBehaviour, IInteractable
         }
 
         gameFlowManager = FindFirstObjectByType<GameFlowManager>();
+        libraryGameFlowManager = FindFirstObjectByType<LibraryGameFlowManager>();
+
     }
 
     public void EnableInteraction(bool enable)
@@ -66,7 +69,8 @@ public class WickDialogue : MonoBehaviour, IInteractable
             gameFlowManager?.StartTeleportSequence();
         }
 
-
+        Debug.Log("Wick finished talking in library.");
+        LibraryGameFlowManager.Instance?.OnWickInteractionComplete();
     }
 
     public void ShowPrompt()

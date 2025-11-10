@@ -97,6 +97,12 @@ public class Dialogue : MonoBehaviour
         StartDialogue("", newLines, onComplete);
     }
 
+    // --- Overload 4: Start dialogue with no speaker name (for items, narration, etc.)
+    public void StartDialogue(string[] newLines)
+    {
+        StartDialogue("", newLines, null);
+    }
+
 
     IEnumerator TypeLine()
     {
