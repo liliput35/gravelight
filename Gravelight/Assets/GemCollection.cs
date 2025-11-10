@@ -7,8 +7,6 @@ public class GemCollection : MonoBehaviour
     [SerializeField] private AudioClip collectSFX;
     private AudioSource audioSource;
 
-    [Header("Visuals")]
-    [SerializeField] private GameObject pickupEffect;
 
     private bool collected = false;
 

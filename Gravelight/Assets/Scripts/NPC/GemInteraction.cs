@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
+[RequireComponent(typeof(Collider))]
 public class GemInteraction : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt = "";
@@ -11,13 +13,15 @@ public class GemInteraction : MonoBehaviour, IInteractable
     [SerializeField, TextArea]
     private string[] dialogueLines =
     {
-        "You picked up the gem."
+        " You picked up the gem."
     };
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip collectSFX;
+    private AudioSource audioSource;
 
     private TMP_Text _promptText;
     private bool hasBeenCollected = false;
-
-    private GemCollection gemCollection; // reference to your separate script
 
     public string InteractionPrompt => _prompt;
 
@@ -26,10 +30,14 @@ public class GemInteraction : MonoBehaviour, IInteractable
         if (_promptUI != null)
         {
             _promptUI.SetActive(false);
+            _promptText = _promptUI.GetComponentInChildren<TMP_Text>();
         }
 
-        // find attached GemCollection
-        gemCollection = GetComponent<GemCollection>();
+        audioSource = GetComponentInChildren<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogWarning($"{name} missing AudioSource child!");
+        }
     }
 
     public bool Interact(Interactor interactor)
@@ -38,32 +46,62 @@ public class GemInteraction : MonoBehaviour, IInteractable
 
         Debug.Log($"Interacted with Gem: {gameObject.name}");
 
-        if (dialogue != null && dialogueLines.Length > 0)
+        hasBeenCollected = true;
+
+        // Play SFX first, then start dialogue after it finishes
+        if (collectSFX != null && audioSource != null)
         {
-            // Start dialogue and register callback
-            dialogue.StartDialogue(dialogueLines, OnDialogueComplete);
+            audioSource.PlayOneShot(collectSFX);
+            StartCoroutine(WaitForSFXThenDialogue(0));
         }
         else
         {
-            // No dialogue? Just collect instantly
-            OnDialogueComplete();
+            // No SFX? Start dialogue immediately
+            StartDialogue();
         }
 
         return true;
     }
 
+    private IEnumerator WaitForSFXThenDialogue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartDialogue();
+    }
+
+    private void StartDialogue()
+    {
+        if (dialogue != null && dialogueLines.Length > 0)
+        {
+            dialogue.StartDialogue(dialogueLines, OnDialogueComplete);
+        }
+        else
+        {
+            OnDialogueComplete();
+        }
+    }
+
     private void OnDialogueComplete()
     {
-        hasBeenCollected = true;
+        // Disable visuals and collider
+        var mesh = GetComponentInChildren<MeshRenderer>();
+        if (mesh != null) mesh.enabled = false;
 
-        if (gemCollection != null)
+        var collider = GetComponent<Collider>();
+        if (collider != null) collider.enabled = false;
+
+        // Detach AudioSource so it can finish playing if needed
+        if (audioSource != null && collectSFX != null)
         {
-            gemCollection.Collect();
-        } else
-        {
-            Debug.LogWarning($"{name} has no GemCollection script!");
+            audioSource.transform.parent = null;
+            Destroy(audioSource.gameObject, collectSFX.length);
         }
-            gameObject.SetActive(false);  // Disappear (collected)
+
+        LibraryGameFlowManager.Instance?.OnGemCollected();
+
+        // Finally destroy the gem object
+        Destroy(gameObject);
+
         Debug.Log($"{gameObject.name} collected!");
     }
 

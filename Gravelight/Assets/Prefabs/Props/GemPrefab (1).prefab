@@ -804,8 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc0bfa06ff9af2408de1a8599e82758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectSFX: {fileID: 8300000, guid: 44b977bd507c1504082e08a604a9c9ac, type: 3}
-  pickupEffect: {fileID: 0}
+  collectSFX: {fileID: 0}
 --- !u!1 &7823910335478487252
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +819,6 @@ GameObject:
   - component: {fileID: 2631660700993682355}
   - component: {fileID: 6409183948956276309}
   - component: {fileID: 2984308957351070546}
-  - component: {fileID: 724462299629150243}
   m_Layer: 6
   m_Name: Gem
   m_TagString: Untagged
@@ -930,7 +928,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -954,21 +952,8 @@ MonoBehaviour:
   _promptUI: {fileID: 6120650900067248082}
   dialogue: {fileID: 0}
   dialogueLines:
-  - You picked up the gem.
---- !u!114 &724462299629150243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7823910335478487252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc0bfa06ff9af2408de1a8599e82758, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  - ' You picked up the gem.'
   collectSFX: {fileID: 8300000, guid: 44b977bd507c1504082e08a604a9c9ac, type: 3}
-  pickupEffect: {fileID: 0}
 --- !u!1001 &3285380730258467803
 PrefabInstance:
   m_ObjectHideFlags: 0
