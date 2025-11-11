@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -23,6 +24,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int pagesToSpawn = 6;
     [SerializeField] private float burstForce = 5f;
 
+
     private Rigidbody rb;
     private float nextAttackTime = 0f;
 
@@ -44,7 +46,10 @@ public class EnemyAI : MonoBehaviour
 
         // When this enemy dies  spawn pages
         if (health != null)
+        {
             health.OnDeath += SpawnPages;
+        }
+
     }
 
     private void FixedUpdate()
@@ -169,4 +174,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
+
+
 }
