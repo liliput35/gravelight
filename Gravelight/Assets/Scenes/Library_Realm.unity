@@ -31348,7 +31348,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.7
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -75526,7 +75526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
       propertyPath: m_Volume
-      value: 0.508
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75617,7 +75621,7 @@ MonoBehaviour:
   dialogueLines:
   - ' wick wick plok plok'
   interactionAudioSource: {fileID: 517193706}
-  interactionSFX: {fileID: 8300000, guid: 8bf3480630ac7944c8506a01b16382ae, type: 3}
+  interactionSFX: {fileID: 8300000, guid: d416e3ae802648540860dfbad885f281, type: 3}
 --- !u!114 &2069778568 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1633993650365222152, guid: 5893eace29cc75a4fbcb919194818530, type: 3}

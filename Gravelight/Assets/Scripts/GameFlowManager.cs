@@ -24,10 +24,10 @@ public class GameFlowManager : MonoBehaviour
     private void Awake()
     {
         //comment/comment out until endif to keep data
-       /*#if UNITY_EDITOR
+       #if UNITY_EDITOR
                 SaveData.Reset();
                 Debug.Log("Reset on play start");
-        #endif*/
+        #endif
 
         if (Instance != null && Instance != this)
         {
