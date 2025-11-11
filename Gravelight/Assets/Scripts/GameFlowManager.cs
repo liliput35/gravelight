@@ -23,7 +23,12 @@ public class GameFlowManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        //comment/comment out until endif to keep data
+        /*#if UNITY_EDITOR
+                SaveData.Reset();
+                Debug.Log("Reset on play start");
+        #endif*/
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -35,7 +40,7 @@ public class GameFlowManager : MonoBehaviour
     private void Start()
     {
 
-        if (SaveData.hasSavedPosition)
+        if (SaveData.hasSavedPosition && SaveData.ghostHelped)
         {
             Debug.Log("has position saved");
             RestorePlayerTransform();
@@ -97,6 +102,7 @@ public class GameFlowManager : MonoBehaviour
     public void OnWickIntroComplete()
     {
         Debug.Log("Wick intro finished — enabling Wick to follow player.");
+        wickNPC.EnableInteraction(false);
 
         firstGhost.EnableInteraction(true);
 
@@ -148,12 +154,26 @@ public class GameFlowManager : MonoBehaviour
             playerInput.actions.Disable();  // important!
         }
 
-        var player = GameObject.FindWithTag("Player");
+        var setup = GameObject.Find("PlayerLiliSetupPrefab");
+        var animated = GameObject.Find("PlayerLiliAnimated");
+        var cameraNormal = GameObject.Find("CameraNormal");
 
-        if (player != null)
+        if (setup != null)
         {
-            SaveData.playerPosition = player.transform.position;
-            SaveData.playerRotation = player.transform.rotation;
+            SaveData.setupPos = setup.transform.position;
+            SaveData.setupRot = setup.transform.rotation;
+        }
+
+        if (animated != null)
+        {
+            SaveData.animatedPos = animated.transform.position;
+            SaveData.animatedRot = animated.transform.rotation;
+        }
+
+        if (cameraNormal != null)
+        {
+            SaveData.cameraPos = cameraNormal.transform.position;
+            SaveData.cameraRot = cameraNormal.transform.rotation;
         }
 
 
@@ -168,11 +188,26 @@ public class GameFlowManager : MonoBehaviour
     }
     private void RestorePlayerTransform()
     {
-        var player = GameObject.FindWithTag("Player");
-        if (player != null)
+        var setup = GameObject.Find("PlayerLiliSetupPrefab");
+        var animated = GameObject.Find("PlayerLiliAnimated");
+        var cameraNormal = GameObject.Find("CameraNormal");
+
+        if (setup != null)
         {
-            player.transform.position = SaveData.playerPosition;
-            player.transform.rotation = SaveData.playerRotation;
+            setup.transform.position = SaveData.setupPos;
+            setup.transform.rotation = SaveData.setupRot;
+        }
+
+        if (animated != null)
+        {
+            animated.transform.position = SaveData.animatedPos;
+            animated.transform.rotation = SaveData.animatedRot;
+        }
+
+        if (cameraNormal != null)
+        {
+            cameraNormal.transform.position = SaveData.cameraPos;
+            cameraNormal.transform.rotation = SaveData.cameraRot;
         }
     }
 

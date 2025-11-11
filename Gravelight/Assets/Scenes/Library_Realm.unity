@@ -15160,6 +15160,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8377902459250950291, guid: 5388f8e7933cbf0478840401ddee5466, type: 3}
   m_PrefabInstance: {fileID: 9189102788465466852}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &517193706 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
+  m_PrefabInstance: {fileID: 2069778557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &521062177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7068278501987339937, guid: 33897bfbc5a99634b8f8bb96790c135f, type: 3}
@@ -75519,6 +75524,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
+      propertyPath: m_Volume
+      value: 0.508
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -75606,9 +75615,9 @@ MonoBehaviour:
   _promptUI: {fileID: 1627069016}
   dialogue: {fileID: 1787434882}
   dialogueLines:
-  - ' eeeeeee!!!'
-  interactionAudioSource: {fileID: 0}
-  interactionSFX: {fileID: 0}
+  - ' wick wick plok plok'
+  interactionAudioSource: {fileID: 517193706}
+  interactionSFX: {fileID: 8300000, guid: 8bf3480630ac7944c8506a01b16382ae, type: 3}
 --- !u!114 &2069778568 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1633993650365222152, guid: 5893eace29cc75a4fbcb919194818530, type: 3}

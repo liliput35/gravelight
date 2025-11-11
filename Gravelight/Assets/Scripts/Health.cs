@@ -15,10 +15,6 @@ public class Health : MonoBehaviour
     private float lastDamageTime;
     private bool isRegenerating = false;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource deathAudioSource;
-    [SerializeField] private AudioClip deathSFX;
-
     [Header("UI (for Player only)")]
     public Image heartDisplay;
     public Sprite fullHearts;
@@ -130,8 +126,7 @@ public class Health : MonoBehaviour
         }
         else if (gameObject.tag == "Enemy")
         {
-            deathAudioSource.PlayOneShot(deathSFX);
-            Debug.Log("hello");
+            
             gameObject.SetActive(false);
             
 
