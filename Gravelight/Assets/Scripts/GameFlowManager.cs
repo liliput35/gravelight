@@ -21,13 +21,18 @@ public class GameFlowManager : MonoBehaviour
 
     private bool grimIntroDone = false;
 
+    [SerializeField] private GameObject hauntedGrave;
+    [SerializeField] private GameObject ascendedGrave;
+
+
+
     private void Awake()
     {
         //comment/comment out until endif to keep data
-       #if UNITY_EDITOR
+       /*#if UNITY_EDITOR
                 SaveData.Reset();
                 Debug.Log("Reset on play start");
-        #endif
+        #endif*/
 
         if (Instance != null && Instance != this)
         {
@@ -227,6 +232,8 @@ public class GameFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         firstGhost.gameObject.SetActive(false);
+        hauntedGrave.SetActive(false);
+        ascendedGrave.SetActive(true);
 
         // Fade back from white
         yield return StartCoroutine(ScreenFader.Instance.FadeFromWhite(0.8f));

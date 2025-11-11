@@ -75526,11 +75526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
       propertyPath: m_Volume
-      value: 0.03
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5644149542557601630, guid: 5893eace29cc75a4fbcb919194818530, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
