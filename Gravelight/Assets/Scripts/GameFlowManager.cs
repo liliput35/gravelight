@@ -24,7 +24,7 @@ public class GameFlowManager : MonoBehaviour
     private void Awake()
     {
         //comment/comment out until endif to keep data
-        /*#if UNITY_EDITOR
+       /*#if UNITY_EDITOR
                 SaveData.Reset();
                 Debug.Log("Reset on play start");
         #endif*/
@@ -134,6 +134,12 @@ public class GameFlowManager : MonoBehaviour
         
     }
 
+    public void OnGhostAlreadyAscended()
+    {
+        StartCoroutine(GhostAscendSequence());
+
+    }
+
     public void StartTeleportSequence()
     {
         StartCoroutine(TeleportRoutine());
@@ -211,4 +217,20 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
+
+    private IEnumerator GhostAscendSequence()
+    {
+        // Fade to white
+        yield return StartCoroutine(ScreenFader.Instance.FadeToWhite(0.8f));
+
+        // Wait while screen is fully white
+        yield return new WaitForSeconds(0.8f);
+
+        firstGhost.gameObject.SetActive(false);
+
+        // Fade back from white
+        yield return StartCoroutine(ScreenFader.Instance.FadeFromWhite(0.8f));
+
+        Debug.Log("LIBRARIAN GHOST ASCENDED");
+    }
 }

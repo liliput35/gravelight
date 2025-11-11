@@ -63,8 +63,11 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
         // If ghost was helped in the library, always show thank you message
         if (SaveData.ghostHelped)
         {
-            dialogue.StartDialogue("Lucille The Librarian", thankDialogueLines);
-            Debug.Log("helped ghost ascend");
+            dialogue.StartDialogue(
+                "Lucille The Librarian",
+                thankDialogueLines,
+                () => gameFlowManager?.OnGhostAlreadyAscended()
+            );
             return true;
         }
 
