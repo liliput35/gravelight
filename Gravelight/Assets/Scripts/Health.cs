@@ -53,7 +53,11 @@ public class Health : MonoBehaviour
 
         if (gameObject.name == "PlayerLiliAnimated")
         {
+            DamageOverlay.Instance?.Flash();
             UpdateHeartsUI();
+        } else
+        {
+            GetComponent<EnemyFlash>()?.Flash();
         }
 
         if (currentHealth <= 0)
@@ -95,6 +99,7 @@ public class Health : MonoBehaviour
     private void UpdateHeartsUI()
     {
         if (heartDisplay == null) return;
+
 
         switch (currentHealth)
         {
