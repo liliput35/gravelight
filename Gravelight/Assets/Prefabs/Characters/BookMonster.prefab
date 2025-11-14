@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5854025741646936779}
   - component: {fileID: 3736432279051293857}
   - component: {fileID: 4381183599860908021}
+  - component: {fileID: 2300314846758033698}
   m_Layer: 0
   m_Name: BookMonster
   m_TagString: Enemy
@@ -161,6 +162,9 @@ MonoBehaviour:
   attackRange: 2
   attackCooldown: 1.5
   damage: 1
+  pagePrefab: {fileID: 7955807215335939307, guid: 0d8f42e90ef1e704aada6cbde578a373, type: 3}
+  pagesToSpawn: 6
+  burstForce: 3
 --- !u!65 &4381183599860908021
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -182,6 +186,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 11.923676, y: 10.225301, z: 8.768873}
   m_Center: {x: 0.2696228, y: 0.52040815, z: 1.0345554}
+--- !u!114 &2300314846758033698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045692452189073145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b7e4523806f44f82d51b7c14e0d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 622cd0e0beece024bb7e6f4058b74360, type: 2}
+  flashDuration: 0.3
 --- !u!1 &2585052146354662929
 GameObject:
   m_ObjectHideFlags: 0

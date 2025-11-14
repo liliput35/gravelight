@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ public class LibraryGameFlowManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Dialogue dialogueUI;
+    [SerializeField] private TextMeshProUGUI gemCounter;
 
     [Header("Gem Tracking")]
     public int gemsCollected = 0;
@@ -89,6 +91,7 @@ public class LibraryGameFlowManager : MonoBehaviour
         gemsCollected++;
 
         Debug.Log($"Gem collected! Total: {gemsCollected}/{gemsRequired}");
+        gemCounter.text = "x   " + gemsCollected;
 
         if (gemsCollected >= gemsRequired)
         {
