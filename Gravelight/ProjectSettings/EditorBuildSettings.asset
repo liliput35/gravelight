@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Library_Realm.unity
     guid: e5912bf779ed3d34387c46c99bab9760
+  - enabled: 1
+    path: Assets/Scenes/Graveyard_Helped.unity
+    guid: a6cc8e7a17df0c943a9dd7c83d52bda7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

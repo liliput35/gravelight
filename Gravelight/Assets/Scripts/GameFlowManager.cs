@@ -42,27 +42,67 @@ public class GameFlowManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    /*private void Start()
     {
 
-        if (SaveData.hasSavedPosition && SaveData.ghostHelped)
+        // Restore saved state if available
+        if (SaveData.GhostHelped)
         {
-            Debug.Log("has position saved");
+            Debug.Log("Restoring saved player state...");
+
             RestorePlayerTransform();
 
-            grimIntroDone = SaveData.grimIntroDone;
-            firstGhostDone = SaveData.ghostHelped;
+            grimIntroDone = SaveData.GrimIntroDone;
+            firstGhostDone = SaveData.FirstGhostDone;
 
-            if (SaveData.wickIntroDone)
+            if (SaveData.WickIntroDone)
                 wickFollower.enabled = true;
 
-            if (SaveData.ghostHelped)
-            {
+            if (firstGhostDone)
                 firstGhost.EnableInteraction(true);
-            }
         }
 
-        
+
+    }*/
+
+    private void Start()
+    {
+        StartCoroutine(RestoreStateAfterSceneLoad());
+    }
+
+    private IEnumerator RestoreStateAfterSceneLoad()
+    {
+        // Wait one frame to ensure all objects are loaded
+        yield return null;
+
+        if (SaveData.GhostHelped)
+        {
+            // Wait until all player objects exist
+            GameObject setup = null;
+            GameObject animated = null;
+            GameObject cameraNormal = null;
+
+            while (setup == null || animated == null || cameraNormal == null)
+            {
+                setup = GameObject.Find("PlayerLiliSetupPrefab");
+                animated = GameObject.Find("PlayerLiliAnimated");
+                cameraNormal = GameObject.Find("CameraNormal");
+                yield return null;
+            }
+
+            RestorePlayerTransform();
+
+            grimIntroDone = SaveData.GrimIntroDone;
+            firstGhostDone = SaveData.FirstGhostDone;
+
+            if (SaveData.WickIntroDone)
+                wickFollower.enabled = true;
+
+            if (firstGhostDone)
+                firstGhost.EnableInteraction(true);
+
+            Debug.Log("Saved state restored successfully.");
+        }
     }
 
     /// Called by GrimDialogue when the player first talks to Grim.
@@ -108,12 +148,12 @@ public class GameFlowManager : MonoBehaviour
     {
         Debug.Log("Wick intro finished — enabling Wick to follow player.");
         wickNPC.EnableInteraction(false);
-
         firstGhost.EnableInteraction(true);
 
         if (wickFollower != null)
         {
-            wickFollower.enabled = true; // start following behavior
+            wickFollower.enabled = true;
+            SaveData.WickIntroDone = true;
         }
     }
 
@@ -133,10 +173,10 @@ public class GameFlowManager : MonoBehaviour
         Debug.Log("First ghost finished dialogue — preparing scene teleport.");
 
         firstGhostDone = true;
+        SaveData.FirstGhostDone = true;
 
-        // ENABLE WICK INTERACTION AGAIN
         wickNPC.EnableInteraction(true);
-        
+
     }
 
     public void OnGhostAlreadyAscended()
@@ -165,38 +205,34 @@ public class GameFlowManager : MonoBehaviour
             playerInput.actions.Disable();  // important!
         }
 
-        var setup = GameObject.Find("PlayerLiliSetupPrefab");
-        var animated = GameObject.Find("PlayerLiliAnimated");
-        var cameraNormal = GameObject.Find("CameraNormal");
+        // Save transforms
+        SaveTransforms();
 
-        if (setup != null)
-        {
-            SaveData.setupPos = setup.transform.position;
-            SaveData.setupRot = setup.transform.rotation;
-        }
-
-        if (animated != null)
-        {
-            SaveData.animatedPos = animated.transform.position;
-            SaveData.animatedRot = animated.transform.rotation;
-        }
-
-        if (cameraNormal != null)
-        {
-            SaveData.cameraPos = cameraNormal.transform.position;
-            SaveData.cameraRot = cameraNormal.transform.rotation;
-        }
-
-
-        SaveData.hasSavedPosition = true;
-
-        SaveData.grimIntroDone = grimIntroDone;
-        SaveData.wickIntroDone = wickFollower.enabled;
-        SaveData.firstGhostDone = firstGhostDone;
+        // Mark ghost helped
+        SaveData.GhostHelped = true;
 
         SceneManager.LoadScene("Library_Realm");
 
     }
+
+    private void SaveTransforms()
+    {
+        var setup = GameObject.Find("PlayerLiliSetupPrefab");
+        var animated = GameObject.Find("PlayerLiliAnimated");
+        var cameraNormal = GameObject.Find("CameraNormal");
+
+        if (setup != null) SaveData.SaveVector3("SetupPos", setup.transform.position);
+        if (setup != null) SaveData.SaveQuaternion("SetupRot", setup.transform.rotation);
+
+        if (animated != null) SaveData.SaveVector3("AnimatedPos", animated.transform.position);
+        if (animated != null) SaveData.SaveQuaternion("AnimatedRot", animated.transform.rotation);
+
+        if (cameraNormal != null) SaveData.SaveVector3("CameraPos", cameraNormal.transform.position);
+        if (cameraNormal != null) SaveData.SaveQuaternion("CameraRot", cameraNormal.transform.rotation);
+
+        PlayerPrefs.Save(); // ensure persistent storage
+    }
+
     private void RestorePlayerTransform()
     {
         var setup = GameObject.Find("PlayerLiliSetupPrefab");
@@ -205,20 +241,20 @@ public class GameFlowManager : MonoBehaviour
 
         if (setup != null)
         {
-            setup.transform.position = SaveData.setupPos;
-            setup.transform.rotation = SaveData.setupRot;
+            setup.transform.position = SaveData.LoadVector3("SetupPos", setup.transform.position);
+            setup.transform.rotation = SaveData.LoadQuaternion("SetupRot", setup.transform.rotation);
         }
 
         if (animated != null)
         {
-            animated.transform.position = SaveData.animatedPos;
-            animated.transform.rotation = SaveData.animatedRot;
+            animated.transform.position = SaveData.LoadVector3("AnimatedPos", animated.transform.position);
+            animated.transform.rotation = SaveData.LoadQuaternion("AnimatedRot", animated.transform.rotation);
         }
 
         if (cameraNormal != null)
         {
-            cameraNormal.transform.position = SaveData.cameraPos;
-            cameraNormal.transform.rotation = SaveData.cameraRot;
+            cameraNormal.transform.position = SaveData.LoadVector3("CameraPos", cameraNormal.transform.position);
+            cameraNormal.transform.rotation = SaveData.LoadQuaternion("CameraRot", cameraNormal.transform.rotation);
         }
     }
 
@@ -239,8 +275,6 @@ public class GameFlowManager : MonoBehaviour
         yield return StartCoroutine(ScreenFader.Instance.FadeFromWhite(0.8f));
 
         Debug.Log("LIBRARIAN GHOST ASCENDED");
-        #if UNITY_EDITOR
-                SaveData.Reset();
-        #endif
+        
     }
 }

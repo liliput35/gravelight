@@ -18,6 +18,7 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
 
     private TMP_Text _promptText;
     private GameFlowManager gameFlowManager; 
+    private GameFlowManager1 gameFlowManager1;
     private bool hasTalkedAlready = false;
 
     private bool canInteract = false;
@@ -35,6 +36,9 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
 
         // Try to auto-find GameFlowManager in the scene
         gameFlowManager = FindFirstObjectByType<GameFlowManager>();
+
+        // Try to auto-find GameFlowManager in the scene
+        gameFlowManager1 = FindFirstObjectByType<GameFlowManager1>();
 
         if (interactionAudioSource == null)
         {
@@ -61,12 +65,12 @@ public class LibrarianGhostDialogue : MonoBehaviour, IInteractable
             return false;
 
         // If ghost was helped in the library, always show thank you message
-        if (SaveData.ghostHelped)
+        if (SaveData.GhostHelped)
         {
             dialogue.StartDialogue(
                 "Lucille The Librarian",
                 thankDialogueLines,
-                () => gameFlowManager?.OnGhostAlreadyAscended()
+                () => gameFlowManager1?.OnGhostAlreadyAscended()
             );
             return true;
         }

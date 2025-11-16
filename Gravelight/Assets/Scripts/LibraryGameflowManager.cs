@@ -171,8 +171,8 @@ public class LibraryGameFlowManager : MonoBehaviour
             playerInput.actions.Disable();  // important!
         }
 
-        SaveData.ghostHelped = true;
-        SceneManager.LoadScene("Graveyard_Main");
+        SaveData.GhostHelped = true;
+        SceneManager.LoadScene("Graveyard_Helped");
 
     }
 }
