@@ -239,5 +239,8 @@ public class GameFlowManager : MonoBehaviour
         yield return StartCoroutine(ScreenFader.Instance.FadeFromWhite(0.8f));
 
         Debug.Log("LIBRARIAN GHOST ASCENDED");
+        #if UNITY_EDITOR
+                SaveData.Reset();
+        #endif
     }
 }
